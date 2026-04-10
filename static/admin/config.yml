@@ -1,0 +1,56 @@
+backend:
+  name: github
+  repo: bibhutissh/self-portfolio
+  branch: main
+
+media_folder: static/images
+public_folder: /images
+
+collections:
+  - name: projects
+    label: Projects
+    folder: src/lib/content/projects
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: string }
+      - { label: Tech Stack, name: techStack, widget: list, default: [] }
+      - { label: URL, name: url, widget: string, required: false }
+      - { label: Repository, name: repo, widget: string, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD" }
+      - { label: Status, name: status, widget: select, options: ["active", "archived", "in-progress"] }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: wordings
+    label: Writing
+    folder: src/lib/content/wordings
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, format: "YYYY-MM-DD" }
+      - { label: Tags, name: tags, widget: list, default: [] }
+      - { label: Description, name: description, widget: string }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: readings
+    label: Readings
+    folder: src/lib/content/readings
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Author, name: author, widget: string }
+      - { label: Type, name: type, widget: select, options: ["book", "article"] }
+      - { label: Rating, name: rating, widget: number, min: 1, max: 5 }
+      - { label: Date Read, name: dateRead, widget: datetime, format: "YYYY-MM-DD" }
+      - { label: Cover Image, name: cover, widget: image, required: false }
+      - { label: URL, name: url, widget: string, required: false }
+      - { label: Tags, name: tags, widget: list, default: [] }
+      - { label: Status, name: status, widget: select, options: ["read", "reading", "to-read"] }
+      - { label: Body, name: body, widget: markdown }
