@@ -37,8 +37,20 @@ export interface Wording {
 	content?: typeof SvelteComponent;
 }
 
+export interface Experience {
+	role: string;
+	company: string;
+	date: string;
+	description: string;
+	featured: boolean;
+	order: number;
+	slug: string;
+	content?: typeof SvelteComponent;
+}
+
 export interface TimelineEntry {
 	title: string;
+	slug: string;
 	date: string;
 	type: 'career' | 'education' | 'personal';
 	description: string;
@@ -46,7 +58,18 @@ export interface TimelineEntry {
 
 export interface Achievement {
 	title: string;
+	slug: string;
 	date: string;
 	description: string;
 	url?: string;
+}
+
+export interface Settings {
+	bio: string;
+	about: string;
+	taglines: string[];
+	github: string;
+	twitter: string;
+	email: string;
+	building_in_public: string;
 }

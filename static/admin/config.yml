@@ -24,6 +24,21 @@ collections:
       - { label: Status, name: status, widget: select, options: ["active", "archived", "in-progress"] }
       - { label: Body, name: body, widget: markdown }
 
+  - name: experience
+    label: Experience
+    folder: src/lib/content/experience
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    fields:
+      - { label: Role, name: role, widget: string }
+      - { label: Company, name: company, widget: string }
+      - { label: Date, name: date, widget: string }
+      - { label: Description, name: description, widget: string }
+      - { label: Featured on Homepage, name: featured, widget: boolean, default: false }
+      - { label: Sort Order, name: order, widget: number, default: 0 }
+      - { label: Body, name: body, widget: markdown }
+
   - name: wordings
     label: Writing
     folder: src/lib/content/wordings
@@ -54,3 +69,42 @@ collections:
       - { label: Tags, name: tags, widget: list, default: [] }
       - { label: Status, name: status, widget: select, options: ["read", "reading", "to-read"] }
       - { label: Body, name: body, widget: markdown }
+
+  - name: timeline
+    label: Timeline
+    folder: src/lib/content/timeline
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: string }
+      - { label: Type, name: type, widget: select, options: ["career", "education", "personal"] }
+      - { label: Description, name: description, widget: string }
+
+  - name: achievements
+    label: Achievements
+    folder: src/lib/content/achievements
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: string }
+      - { label: Description, name: description, widget: string }
+      - { label: URL, name: url, widget: string, required: false }
+
+  - name: settings
+    label: Site Settings
+    files:
+      - name: site
+        label: General
+        file: src/lib/content/settings/site.md
+        fields:
+          - { label: Bio (homepage one-liner), name: bio, widget: text }
+          - { label: About Page Text, name: about, widget: markdown }
+          - { label: Taglines (rotating hero text), name: taglines, widget: list, field: { label: Line, name: line, widget: string } }
+          - { label: GitHub URL, name: github, widget: string }
+          - { label: Twitter/X URL, name: twitter, widget: string }
+          - { label: Email, name: email, widget: string }
+          - { label: Building in Public Text, name: building_in_public, widget: markdown }

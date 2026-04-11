@@ -3,15 +3,12 @@
 	import { cycleTaglines } from '$lib/utils/ascii';
 	import AsciiTorus from './AsciiTorus.svelte';
 
+	let {
+		taglines = ['building things that think', 'shipping at the edge', 'reading the source', 'systems over hype']
+	}: { taglines?: string[] } = $props();
+
 	let tagline = $state('');
 	let visible = $state(false);
-
-	const taglines = [
-		'building things that think',
-		'shipping at the edge',
-		'reading the source',
-		'systems over hype'
-	];
 
 	const banner = `██████╗ ██╗██████╗ ██╗  ██╗██╗   ██╗████████╗██╗         ██╗██╗  ██╗ █████╗
 ██╔══██╗██║██╔══██╗██║  ██║██║   ██║╚══██╔══╝██║         ██║██║  ██║██╔══██╗

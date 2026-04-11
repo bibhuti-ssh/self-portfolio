@@ -1,12 +1,19 @@
 <script lang="ts">
 	import { mode } from '$lib/stores/mode.svelte';
+
+	let {
+		github = 'https://github.com/bibhutissh',
+		twitter = '',
+		email = 'hello@bibhutijha.dev'
+	}: { github?: string; twitter?: string; email?: string } = $props();
 </script>
 
 <footer class="footer">
 	<div class="links">
-		<a href="https://github.com/bibhutissh" target="_blank" rel="noopener">github</a>
-		<span>·</span>
-		<a href="mailto:hello@bibhutijha.dev">email</a>
+		{#if github}<a href={github} target="_blank" rel="noopener">github</a>{/if}
+		{#if github && email}<span>·</span>{/if}
+		{#if email}<a href="mailto:{email}">email</a>{/if}
+		{#if twitter}<span>·</span><a href={twitter} target="_blank" rel="noopener">x/twitter</a>{/if}
 		<span>·</span>
 		<a href="/llms.txt">llms.txt</a>
 	</div>

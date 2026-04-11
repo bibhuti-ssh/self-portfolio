@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { mode } from '$lib/stores/mode.svelte';
+	import { page } from '$app/state';
 	import AsciiHero from '$lib/components/ui/AsciiHero.svelte';
 	import ProjectCard from '$lib/components/ui/ProjectCard.svelte';
 	import BookCard from '$lib/components/ui/BookCard.svelte';
 
 	let { data } = $props();
+	const settings = $derived(data.settings);
 </script>
 
 <svelte:head>
@@ -12,15 +14,11 @@
 	<meta name="description" content="Bibhuti Jha — engineer, builder, reader" />
 </svelte:head>
 
-<AsciiHero />
+<AsciiHero taglines={settings?.taglines} />
 
-<!-- About one-liner -->
+<!-- Bio -->
 <section class="section bio">
-	<p class="bio-text">
-		I build systems at the intersection of cloud infrastructure and intelligent automation.
-		Currently shipping DroidRun Cloud — AI agents that control real Android devices.
-		I care about code that's honest, fast, and doesn't waste your time.
-	</p>
+	<p class="bio-text">{settings?.bio ?? ''}</p>
 </section>
 
 <!-- Experience -->
@@ -29,22 +27,16 @@
 		<h2 class="heading">{mode.isAgent ? '## Experience' : 'Experience'}</h2>
 	</a>
 	<div class="exp-list">
-		<div class="exp-item">
-			<div class="exp-top">
-				<span class="exp-role">Founding Engineer</span>
-				<span class="exp-date">2025 — present</span>
+		{#each data.experience as exp}
+			<div class="exp-item">
+				<div class="exp-top">
+					<span class="exp-role">{exp.role}</span>
+					<span class="exp-date">{exp.date}</span>
+				</div>
+				<span class="exp-company">{exp.company}</span>
+				<p class="exp-desc">{exp.description}</p>
 			</div>
-			<span class="exp-company">DroidRun</span>
-			<p class="exp-desc">Building cloud platform for AI-powered mobile device automation. SvelteKit, Python, FastAPI.</p>
-		</div>
-		<div class="exp-item">
-			<div class="exp-top">
-				<span class="exp-role">Open Source Contributor</span>
-				<span class="exp-date">2024 — present</span>
-			</div>
-			<span class="exp-company">LLM Agent Tooling</span>
-			<p class="exp-desc">Contributing to orchestration frameworks for LLM-powered agents.</p>
-		</div>
+		{/each}
 	</div>
 </section>
 
@@ -72,13 +64,11 @@
 		</a>
 	{/each}
 
-	<div class="bip">
-		<p class="bip-text">
-			I build in the open — shipping features, sharing learnings, breaking things.
-			Follow the build on <a href="https://x.com/bibhutissh" target="_blank" rel="noopener">X</a>
-			or check the code on <a href="https://github.com/bibhutissh" target="_blank" rel="noopener">GitHub</a>.
-		</p>
-	</div>
+	{#if settings?.building_in_public}
+		<div class="bip">
+			<p class="bip-text">{settings.building_in_public}</p>
+		</div>
+	{/if}
 
 	<a href="/wordings" class="more">→ all writing</a>
 </section>
@@ -118,20 +108,14 @@
 		transition: color 80ms;
 	}
 
-	/* Bio */
 	.bio { border-bottom: 1px solid var(--border); }
-
 	.bio-text {
 		color: var(--fg-2);
 		line-height: var(--leading-relaxed);
 		max-width: 60ch;
 	}
 
-	/* Experience */
-	.exp-list {
-		display: flex;
-		flex-direction: column;
-	}
+	.exp-list { display: flex; flex-direction: column; }
 
 	.exp-item {
 		padding: var(--space-3) 0;
@@ -145,21 +129,9 @@
 		gap: var(--space-2);
 	}
 
-	.exp-role {
-		font-weight: 700;
-		font-size: var(--text-md);
-	}
-
-	.exp-date {
-		font-size: var(--text-xs);
-		color: var(--fg-3);
-		flex-shrink: 0;
-	}
-
-	.exp-company {
-		font-size: var(--text-sm);
-		color: var(--fg-3);
-	}
+	.exp-role { font-weight: 700; font-size: var(--text-md); }
+	.exp-date { font-size: var(--text-xs); color: var(--fg-3); flex-shrink: 0; }
+	.exp-company { font-size: var(--text-sm); color: var(--fg-3); }
 
 	.exp-desc {
 		color: var(--fg-2);
@@ -167,7 +139,6 @@
 		line-height: var(--leading-normal);
 	}
 
-	/* More link */
 	.more {
 		display: inline-block;
 		font-size: var(--text-xs);
@@ -177,7 +148,6 @@
 	}
 	.more:hover { color: var(--accent); }
 
-	/* Writing rows */
 	.post-row {
 		display: flex;
 		align-items: baseline;
@@ -189,11 +159,7 @@
 	}
 	.post-row:hover .post-title { color: var(--accent); }
 
-	.post-row time {
-		font-size: var(--text-xs);
-		color: var(--fg-3);
-		flex-shrink: 0;
-	}
+	.post-row time { font-size: var(--text-xs); color: var(--fg-3); flex-shrink: 0; }
 
 	.post-title {
 		font-weight: 700;
@@ -204,7 +170,6 @@
 		min-width: 0;
 	}
 
-	/* Building in public */
 	.bip {
 		margin-top: var(--space-4);
 		padding: var(--space-3);
@@ -215,16 +180,6 @@
 		color: var(--fg-2);
 		line-height: var(--leading-normal);
 		font-size: var(--text-sm);
-	}
-
-	.bip-text a {
-		color: var(--fg);
-		text-decoration: underline;
-		text-decoration-color: var(--border);
-	}
-	.bip-text a:hover {
-		color: var(--accent);
-		text-decoration-color: var(--accent);
 	}
 
 	@media (max-width: 480px) {

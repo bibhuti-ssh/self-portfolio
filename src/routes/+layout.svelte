@@ -6,7 +6,7 @@
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import '../app.css';
 
-	let { children } = $props();
+	let { children, data } = $props();
 
 	$effect(() => {
 		mode.init();
@@ -30,7 +30,11 @@
 	{@render children()}
 </main>
 
-<Footer />
+<Footer
+	github={data.settings.github}
+	twitter={data.settings.twitter}
+	email={data.settings.email}
+/>
 
 <style>
 	main {

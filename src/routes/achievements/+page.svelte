@@ -2,11 +2,7 @@
 	import { mode } from '$lib/stores/mode.svelte';
 	import AsciiDivider from '$lib/components/ui/AsciiDivider.svelte';
 
-	const achievements = [
-		{ title: 'DroidRun Cloud Launch', date: '2025', description: 'Shipped the initial release of a cloud platform for AI-powered mobile automation.' },
-		{ title: 'Open Source Contributor', date: '2024', description: 'Contributed to LLM agent orchestration tooling used by hundreds of developers.' },
-		{ title: 'Systems Design Deep Dive', date: '2024', description: 'Completed intensive study of distributed systems, from Raft consensus to CRDT merge strategies.' }
-	];
+	let { data } = $props();
 </script>
 
 <svelte:head>
@@ -21,7 +17,7 @@
 	{/if}
 	<AsciiDivider style="thin" />
 
-	{#each achievements as item}
+	{#each data.achievements as item}
 		{#if mode.isHuman}
 			<div class="item">
 				<div class="item-head">
@@ -53,19 +49,8 @@
 	}
 
 	.dot { color: var(--accent); flex-shrink: 0; font-size: var(--text-xs); }
-
-	.item-title {
-		font-weight: 700;
-		font-size: var(--text-md);
-		min-width: 0;
-	}
-
-	.item-date {
-		font-size: var(--text-xs);
-		color: var(--fg-3);
-		margin-left: auto;
-		flex-shrink: 0;
-	}
+	.item-title { font-weight: 700; font-size: var(--text-md); min-width: 0; }
+	.item-date { font-size: var(--text-xs); color: var(--fg-3); margin-left: auto; flex-shrink: 0; }
 
 	.item-desc {
 		color: var(--fg-2);

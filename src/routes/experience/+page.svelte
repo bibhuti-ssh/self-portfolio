@@ -2,26 +2,7 @@
 	import { mode } from '$lib/stores/mode.svelte';
 	import AsciiDivider from '$lib/components/ui/AsciiDivider.svelte';
 
-	const experiences = [
-		{
-			role: 'Founding Engineer',
-			company: 'DroidRun',
-			date: '2025 — present',
-			description: 'Building cloud platform for AI-powered mobile device automation. Designing the SvelteKit frontend, Python/FastAPI backend, real-time device streaming, and LLM agent framework.'
-		},
-		{
-			role: 'Open Source Contributor',
-			company: 'LLM Agent Tooling',
-			date: '2024 — present',
-			description: 'Contributing to orchestration frameworks for LLM-powered agents. Building tooling that helps developers ship AI-native applications faster.'
-		},
-		{
-			role: 'Systems Design Study',
-			company: 'Independent',
-			date: '2024',
-			description: 'Intensive deep dive into distributed systems — consensus algorithms (Raft, Paxos), CRDTs, eventual consistency, and stream processing architectures.'
-		}
-	];
+	let { data } = $props();
 </script>
 
 <svelte:head>
@@ -37,7 +18,7 @@
 	{/if}
 	<AsciiDivider style="thin" />
 
-	{#each experiences as exp}
+	{#each data.experience as exp}
 		{#if mode.isHuman}
 			<div class="item">
 				<div class="item-top">
@@ -70,23 +51,9 @@
 		gap: var(--space-2);
 	}
 
-	.item-role {
-		font-weight: 700;
-		font-size: var(--text-md);
-	}
-
-	.item-date {
-		font-size: var(--text-xs);
-		color: var(--fg-3);
-		flex-shrink: 0;
-	}
-
-	.item-company {
-		font-size: var(--text-sm);
-		color: var(--fg-3);
-		display: block;
-		margin-top: var(--space-1);
-	}
+	.item-role { font-weight: 700; font-size: var(--text-md); }
+	.item-date { font-size: var(--text-xs); color: var(--fg-3); flex-shrink: 0; }
+	.item-company { font-size: var(--text-sm); color: var(--fg-3); display: block; margin-top: var(--space-1); }
 
 	.item-desc {
 		color: var(--fg-2);
