@@ -15,84 +15,66 @@
 
 <section class="page">
 	{#if mode.isHuman}
-		<h1 class="page-title">Achievements</h1>
-		<AsciiDivider style="thin" />
+		<h1 class="title">Achievements</h1>
 	{:else}
 		<h1># Achievements</h1>
 	{/if}
+	<AsciiDivider style="thin" />
 
-	<div class="achievement-list">
-		{#each achievements as item}
-			{#if mode.isHuman}
-				<div class="achievement">
-					<div class="achievement-header">
-						<span class="marker" aria-hidden="true">◆</span>
-						<h2 class="achievement-title">{item.title}</h2>
-						<span class="achievement-date">{item.date}</span>
-					</div>
-					<p class="achievement-desc">{item.description}</p>
+	{#each achievements as item}
+		{#if mode.isHuman}
+			<div class="item">
+				<div class="item-head">
+					<span class="dot">◆</span>
+					<h2 class="item-title">{item.title}</h2>
+					<span class="item-date">{item.date}</span>
 				</div>
-			{:else}
-				<p>- **{item.title}** ({item.date}): {item.description}</p>
-			{/if}
-		{/each}
-	</div>
+				<p class="item-desc">{item.description}</p>
+			</div>
+		{:else}
+			<p>- **{item.title}** ({item.date}): {item.description}</p>
+		{/if}
+	{/each}
 </section>
 
 <style>
-	.page {
-		padding: var(--space-12) 0;
+	.page { padding: var(--space-6) 0; }
+	.title { font-weight: 700; font-size: var(--text-xl); margin-bottom: var(--space-1); }
+
+	.item {
+		padding: var(--space-3) 0;
+		border-bottom: 1px solid var(--border);
 	}
 
-	.page-title {
-		font-family: var(--font-display);
-		font-style: italic;
-		font-size: var(--text-3xl);
-		letter-spacing: -0.02em;
-		margin-bottom: var(--space-2);
-	}
-
-	.achievement-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-6);
-	}
-
-	.achievement {
-		padding: var(--space-4) 0;
-		border-bottom: 1px solid var(--border-ghost);
-	}
-
-	.achievement-header {
+	.item-head {
 		display: flex;
 		align-items: baseline;
-		gap: var(--space-3);
-		margin-bottom: var(--space-2);
+		gap: var(--space-2);
 	}
 
-	.marker {
-		color: var(--accent);
-		flex-shrink: 0;
+	.dot { color: var(--accent); flex-shrink: 0; font-size: var(--text-xs); }
+
+	.item-title {
+		font-weight: 700;
+		font-size: var(--text-md);
+		min-width: 0;
 	}
 
-	.achievement-title {
-		font-family: var(--font-display);
-		font-size: var(--text-lg);
-		line-height: var(--leading-snug);
-	}
-
-	.achievement-date {
-		font-family: var(--font-mono);
+	.item-date {
 		font-size: var(--text-xs);
-		color: var(--fg-tertiary);
-		flex-shrink: 0;
+		color: var(--fg-3);
 		margin-left: auto;
+		flex-shrink: 0;
 	}
 
-	.achievement-desc {
-		color: var(--fg-secondary);
-		line-height: var(--leading-normal);
-		max-width: var(--measure);
-		padding-left: calc(1em + var(--space-3));
+	.item-desc {
+		color: var(--fg-2);
+		margin-top: var(--space-1);
+		padding-left: calc(0.7em + var(--space-2));
+	}
+
+	@media (max-width: 480px) {
+		.page { padding: var(--space-4) 0; }
+		.item-desc { padding-left: 0; }
 	}
 </style>

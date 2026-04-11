@@ -1,44 +1,35 @@
 <script lang="ts">
 	import { mode } from '$lib/stores/mode.svelte';
+	let { style = 'thin' }: { style?: 'thin' | 'double' | 'dots' | 'node' } = $props();
 
-	type DividerStyle = 'thin' | 'double' | 'dotted' | 'gradient' | 'wave';
-
-	let { style = 'thin' as DividerStyle } = $props();
-
-	const patterns: Record<DividerStyle, string> = {
-		thin: '─'.repeat(60),
-		double: '═'.repeat(60),
-		dotted: '· '.repeat(30),
-		gradient: '░▒▓' + '█'.repeat(20) + '▓▒░',
-		wave: '░▒▓'.repeat(10) + '▓▒░'
+	const p: Record<string, string> = {
+		thin:   '────────── · ──────────',
+		double: '══════════ ◆ ══════════',
+		dots:   '· · · · · · · · · · · ·',
+		node:   '○───○───○───○───○───○───○'
 	};
 </script>
 
 {#if mode.isHuman}
-	<div class="divider decorative" aria-hidden="true">
-		<pre>{patterns[style]}</pre>
-	</div>
+	<div class="d decorative" aria-hidden="true">{p[style]}</div>
 {:else}
-	<hr class="divider-agent" />
+	<hr class="d-agent" />
 {/if}
 
 <style>
-	.divider {
+	.d {
+		font-family: var(--font-ascii);
+		font-size: var(--text-xs);
+		color: var(--fg-muted);
+		margin: var(--space-4) 0;
 		overflow: hidden;
-		margin: var(--space-8) 0;
+		white-space: nowrap;
+		text-align: center;
 	}
 
-	.divider pre {
-		font-family: var(--font-mono);
-		font-size: 11px;
-		color: var(--fg-ghost);
-		line-height: 1;
-		white-space: pre;
-	}
-
-	.divider-agent {
+	.d-agent {
 		border: none;
-		border-top: 1px solid var(--border-secondary);
-		margin: var(--space-6) 0;
+		border-top: 1px solid var(--border);
+		margin: var(--space-3) 0;
 	}
 </style>

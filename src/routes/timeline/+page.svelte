@@ -17,40 +17,21 @@
 
 <section class="page">
 	{#if mode.isHuman}
-		<h1 class="page-title">Life</h1>
-		<p class="page-desc">The path so far, roughly ordered.</p>
-		<AsciiDivider style="thin" />
+		<h1 class="title">Life</h1>
+		<p class="desc">The path so far, roughly ordered.</p>
 	{:else}
 		<h1># Timeline</h1>
 	{/if}
-
-	<div class="timeline">
-		{#each entries as entry, i}
-			<TimelineItem {entry} isLast={i === entries.length - 1} />
-		{/each}
-	</div>
+	<AsciiDivider style="thin" />
+	{#each entries as entry, i}
+		<TimelineItem {entry} isLast={i === entries.length - 1} />
+	{/each}
 </section>
 
 <style>
-	.page {
-		padding: var(--space-12) 0;
-	}
+	.page { padding: var(--space-6) 0; }
+	.title { font-weight: 700; font-size: var(--text-xl); margin-bottom: var(--space-1); }
+	.desc { color: var(--fg-2); font-size: var(--text-sm); }
 
-	.page-title {
-		font-family: var(--font-display);
-		font-style: italic;
-		font-size: var(--text-3xl);
-		letter-spacing: -0.02em;
-		margin-bottom: var(--space-3);
-	}
-
-	.page-desc {
-		color: var(--fg-secondary);
-		font-size: var(--text-md);
-		margin-bottom: var(--space-2);
-	}
-
-	.timeline {
-		max-width: var(--measure-wide);
-	}
+	@media (max-width: 480px) { .page { padding: var(--space-4) 0; } }
 </style>

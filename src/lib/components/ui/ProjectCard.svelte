@@ -6,105 +6,83 @@
 </script>
 
 {#if mode.isAgent}
-	<article class="agent-card">
-		<h3>## {project.title}</h3>
+	<div class="agent">
+		<p>## {project.title}</p>
 		<p>{project.description}</p>
-		<p>stack: {project.techStack.join(', ')}</p>
-		<p>status: {project.status}</p>
-		{#if project.url}<p>url: <a href={project.url}>{project.url}</a></p>{/if}
-		{#if project.repo}<p>repo: <a href={project.repo}>{project.repo}</a></p>{/if}
-	</article>
+		<p>stack: {project.techStack.join(', ')} | status: {project.status}</p>
+	</div>
 {:else}
-	<a href="/projects/{project.slug}" class="project-card">
-		<div class="card-header">
-			<h3 class="card-title">{project.title}</h3>
-			<span class="card-status" class:active={project.status === 'active'}>
-				[{project.status}]
-			</span>
+	<a href="/projects/{project.slug}" class="card">
+		<div class="row">
+			<h3 class="title">{project.title}</h3>
+			<span class="year">{project.date.slice(0, 4)}</span>
 		</div>
-
-		<p class="card-desc">{project.description}</p>
-
-		<div class="card-meta">
-			<span class="card-tech">{project.techStack.join(' · ')}</span>
-			<span class="card-date">{project.date.slice(0, 4)}</span>
+		<p class="desc">{project.description}</p>
+		<div class="row">
+			<span class="tech">{project.techStack.join(' · ')}</span>
+			<span class="status" class:active={project.status === 'active'}>{project.status}</span>
 		</div>
 	</a>
 {/if}
 
 <style>
-	.project-card {
+	.card {
 		display: block;
 		text-decoration: none;
-		color: var(--fg-primary);
-		padding: var(--space-4) 0;
-		border-bottom: 1px solid var(--border-ghost);
-		transition: background 100ms ease;
+		color: inherit;
+		padding: var(--space-3) 0;
+		border-bottom: 1px solid var(--border);
 	}
+	.card:hover .title { color: var(--accent); }
 
-	.project-card:hover {
-		background: var(--bg-secondary);
-		margin-inline: calc(-1 * var(--space-3));
-		padding-inline: var(--space-3);
-	}
-
-	.card-header {
+	.row {
 		display: flex;
 		justify-content: space-between;
 		align-items: baseline;
-		gap: var(--space-3);
-		margin-bottom: var(--space-1);
+		gap: var(--space-2);
 	}
 
-	.card-title {
-		font-weight: 700;
+	.title {
+		font-weight: 400;
 		font-size: var(--text-md);
-		transition: color 100ms ease;
+		transition: color 80ms;
+		min-width: 0;
 	}
 
-	.project-card:hover .card-title {
-		color: var(--accent);
-	}
-
-	.card-status {
+	.year {
 		font-size: var(--text-xs);
-		color: var(--fg-ghost);
+		color: var(--fg-muted);
 		flex-shrink: 0;
 	}
 
-	.card-status.active {
-		color: var(--accent);
-	}
-
-	.card-desc {
-		color: var(--fg-secondary);
-		margin-bottom: var(--space-2);
+	.desc {
+		color: var(--fg-2);
+		margin: var(--space-1) 0 var(--space-2);
 		line-height: var(--leading-normal);
 	}
 
-	.card-meta {
-		display: flex;
-		justify-content: space-between;
+	.tech {
 		font-size: var(--text-xs);
-		color: var(--fg-tertiary);
-	}
-
-	.card-tech {
+		color: var(--fg-3);
 		text-transform: uppercase;
 		letter-spacing: 0.03em;
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
-	.agent-card {
+	.status {
+		font-size: var(--text-xs);
+		color: var(--fg-muted);
+		flex-shrink: 0;
+	}
+	.status.active { color: var(--accent); }
+
+	.agent {
 		padding: var(--space-3) 0;
-		border-bottom: 1px solid var(--border-ghost);
+		border-bottom: 1px solid var(--border);
 	}
-
-	.agent-card h3 {
-		margin-bottom: var(--space-1);
-	}
-
-	.agent-card p {
-		color: var(--fg-secondary);
-		margin-bottom: var(--space-1);
-	}
+	.agent p { color: var(--fg-2); }
+	.agent p:first-child { color: var(--fg); font-weight: 700; }
 </style>

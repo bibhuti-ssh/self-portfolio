@@ -4,96 +4,55 @@
 
 	let { reading }: { reading: Reading } = $props();
 
-	const statusIcon: Record<string, string> = {
-		read: '█',
-		reading: '▓',
-		'to-read': '░'
-	};
-
-	function ratingBar(n: number): string {
-		return '█'.repeat(n) + '░'.repeat(5 - n);
-	}
+	const icons: Record<string, string> = { read: '█', reading: '▓', 'to-read': '░' };
+	const bar = (n: number) => '█'.repeat(n) + '░'.repeat(5 - n);
 </script>
 
 {#if mode.isAgent}
-	<div class="agent-entry">
-		<p>- [{reading.status}] *{reading.title}* — {reading.author} ({ratingBar(reading.rating)})</p>
-	</div>
+	<p>- [{reading.status}] *{reading.title}* — {reading.author} ({bar(reading.rating)})</p>
 {:else}
-	<a href="/readings/{reading.slug}" class="book-row">
-		<span class="status" aria-label="Status: {reading.status}">
-			{statusIcon[reading.status] ?? '░'}
-		</span>
+	<a href="/readings/{reading.slug}" class="row">
+		<span class="icon">{icons[reading.status] ?? '░'}</span>
 		<span class="title">{reading.title}</span>
-		<span class="author">— {reading.author}</span>
-		<span class="rating" aria-label="{reading.rating} out of 5">
-			{ratingBar(reading.rating)}
-		</span>
+		<span class="meta">{reading.author}</span>
+		<span class="meta rating">{bar(reading.rating)}</span>
 	</a>
 {/if}
 
 <style>
-	.book-row {
+	.row {
 		display: grid;
-		grid-template-columns: 2ch 1fr auto auto;
-		gap: var(--space-3);
+		grid-template-columns: 1.5ch 1fr auto auto;
+		gap: var(--space-2);
 		align-items: baseline;
-		padding: var(--space-2) var(--space-3);
-		font-family: var(--font-mono);
+		padding: var(--space-1) 0;
 		font-size: var(--text-sm);
 		text-decoration: none;
-		color: var(--fg-primary);
-		transition: background 120ms ease;
-		border-radius: 2px;
+		color: inherit;
 	}
+	.row:hover .title { color: var(--accent); }
 
-	.book-row:hover {
-		background: var(--bg-secondary);
-	}
-
-	.book-row:hover .title {
-		color: var(--accent);
-	}
-
-	.status {
-		color: var(--fg-secondary);
-		text-align: center;
-	}
+	.icon { color: var(--fg-3); text-align: center; }
 
 	.title {
-		font-family: var(--font-body);
 		font-style: italic;
-		font-size: var(--text-base);
-		color: var(--fg-primary);
-		transition: color 120ms ease;
+		transition: color 80ms;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		min-width: 0;
 	}
 
-	.author {
-		color: var(--fg-tertiary);
+	.meta {
+		color: var(--fg-3);
 		white-space: nowrap;
+		font-size: var(--text-xs);
 	}
 
-	.rating {
-		color: var(--fg-secondary);
-		letter-spacing: 0.05em;
-	}
+	.rating { letter-spacing: 0.02em; }
 
-	.agent-entry {
-		font-family: var(--font-mono);
-		font-size: var(--text-sm);
-		padding: var(--space-1) 0;
-	}
-
-	@media (max-width: 640px) {
-		.book-row {
-			grid-template-columns: 2ch 1fr;
-		}
-
-		.author, .rating {
-			display: none;
-		}
+	@media (max-width: 480px) {
+		.row { grid-template-columns: 1.5ch 1fr; }
+		.meta { display: none; }
 	}
 </style>

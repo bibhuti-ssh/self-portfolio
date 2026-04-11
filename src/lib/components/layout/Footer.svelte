@@ -3,58 +3,37 @@
 </script>
 
 <footer class="footer">
-	{#if mode.isHuman}
-		<pre class="footer-art decorative" aria-hidden="true">░▒▓ built with svelte & questionable judgment ▓▒░</pre>
-	{/if}
-
-	<div class="footer-links">
+	<div class="links">
 		<a href="https://github.com/bibhutissh" target="_blank" rel="noopener">github</a>
-		<span class="sep">/</span>
+		<span>·</span>
 		<a href="mailto:hello@bibhutijha.dev">email</a>
-		<span class="sep">/</span>
+		<span>·</span>
 		<a href="/llms.txt">llms.txt</a>
 	</div>
-
-	<p class="footer-copy">&copy; {new Date().getFullYear()} bibhuti jha</p>
+	<p class="copy">&copy; {new Date().getFullYear()} bibhuti jha</p>
 </footer>
 
 <style>
 	.footer {
-		margin-top: var(--space-12);
-		padding: var(--space-6) 0;
-		border-top: 1px solid var(--border-ghost);
+		margin-top: var(--space-8);
+		padding: var(--space-6) 0 var(--space-4);
+		border-top: 1px solid var(--border);
 		text-align: center;
-	}
-
-	.footer-art {
 		font-size: var(--text-xs);
-		color: var(--fg-ghost);
-		margin-bottom: var(--space-4);
+		color: var(--fg-muted);
 	}
 
-	.footer-links {
-		font-size: var(--text-sm);
+	.links {
 		display: flex;
 		justify-content: center;
 		gap: var(--space-2);
-		margin-bottom: var(--space-3);
+		margin-bottom: var(--space-2);
 	}
 
-	.footer-links a {
-		color: var(--fg-secondary);
+	.links a {
+		color: var(--fg-3);
 		text-decoration: none;
 	}
-
-	.footer-links a:hover {
-		color: var(--accent);
-	}
-
-	.sep {
-		color: var(--fg-ghost);
-	}
-
-	.footer-copy {
-		font-size: var(--text-xs);
-		color: var(--fg-ghost);
-	}
+	.links a:hover { color: var(--accent); }
+	.links span { color: var(--fg-muted); }
 </style>

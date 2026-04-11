@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: bibhutissh/self-portfolio
+  repo: bibhuti-ssh/self-portfolio
   branch: main
 
 media_folder: static/images

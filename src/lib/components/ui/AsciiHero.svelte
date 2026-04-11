@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { mode } from '$lib/stores/mode.svelte';
 	import { cycleTaglines } from '$lib/utils/ascii';
+	import AsciiTorus from './AsciiTorus.svelte';
 
 	let tagline = $state('');
 	let visible = $state(false);
@@ -12,105 +13,101 @@
 		'systems over hype'
 	];
 
+	const banner = `██████╗ ██╗██████╗ ██╗  ██╗██╗   ██╗████████╗██╗         ██╗██╗  ██╗ █████╗
+██╔══██╗██║██╔══██╗██║  ██║██║   ██║╚══██╔══╝██║         ██║██║  ██║██╔══██╗
+██████╔╝██║██████╔╝███████║██║   ██║   ██║   ██║         ██║███████║███████║
+██╔══██╗██║██╔══██╗██╔══██║██║   ██║   ██║   ██║    ██   ██║██╔══██║██╔══██║
+██████╔╝██║██████╔╝██║  ██║╚██████╔╝   ██║   ██║    ╚█████╔╝██║  ██║██║  ██║
+╚═════╝ ╚═╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝     ╚════╝ ╚═╝  ╚═╝╚═╝  ╚═╝`;
+
 	$effect(() => {
 		visible = true;
-		const cancel = cycleTaglines(taglines, (text) => {
-			tagline = text;
-		});
+		const cancel = cycleTaglines(taglines, (text) => { tagline = text; });
 		return cancel;
 	});
 </script>
 
 <section class="hero" aria-label="Introduction">
 	{#if mode.isHuman}
-		<div class="hero-content" class:visible>
-			<pre class="hero-ascii decorative" aria-hidden="true">░▒▓█████▓▒░</pre>
-			<h1 class="hero-name">Bibhuti Jha</h1>
-			<p class="hero-role">engineer · builder · reader</p>
-			<p class="hero-tagline">
-				<span class="prompt" aria-hidden="true">&gt;</span>
-				<span>{tagline}</span>
-				<span class="cursor" aria-hidden="true">_</span>
-			</p>
+		<div class="hero-inner" class:visible>
+			<div class="hero-row">
+				<div class="hero-text">
+					<pre class="banner decorative" aria-hidden="true">{banner}</pre>
+					<p class="role">engineer · builder · reader</p>
+					<p class="tagline">
+						<span class="prompt" aria-hidden="true">&gt;</span>
+						<span class="tagline-text">{tagline}</span>
+						<span class="cursor" aria-hidden="true">_</span>
+					</p>
+				</div>
+				<div class="torus-wrap">
+					<AsciiTorus width={40} height={20} speed={1} />
+				</div>
+			</div>
 		</div>
 	{:else}
-		<div class="hero-agent">
-			<h1># Bibhuti Jha</h1>
-			<p>> engineer / builder / reader</p>
-		</div>
+		<h1># Bibhuti Jha</h1>
+		<p style="color: var(--fg-2)">> engineer / builder / reader</p>
 	{/if}
 </section>
 
 <style>
 	.hero {
-		padding: var(--space-12) 0 var(--space-8);
-		border-bottom: 1px solid var(--border-ghost);
+		padding: var(--space-12) 0 var(--space-6);
 	}
 
-	.hero-content {
+	.hero-inner {
 		opacity: 0;
-		transition: opacity 600ms ease;
+		transition: opacity 500ms ease;
 	}
+	.hero-inner.visible { opacity: 1; }
 
-	.hero-content.visible {
-		opacity: 1;
-	}
-
-	.hero-ascii {
-		font-size: var(--text-sm);
-		color: var(--fg-ghost);
-		margin-bottom: var(--space-3);
-		letter-spacing: 0.1em;
-	}
-
-	.hero-name {
-		font-family: var(--font-display);
-		font-style: italic;
-		font-size: var(--text-4xl);
-		line-height: var(--leading-tight);
-		letter-spacing: -0.02em;
-		margin-bottom: var(--space-2);
-	}
-
-	.hero-role {
-		font-size: var(--text-md);
-		color: var(--fg-secondary);
-		margin-bottom: var(--space-4);
-	}
-
-	.hero-tagline {
-		font-size: var(--text-base);
-		color: var(--fg-tertiary);
+	.hero-row {
 		display: flex;
 		align-items: center;
-		gap: var(--space-2);
+		justify-content: space-between;
+		gap: var(--space-4);
 	}
 
-	.prompt {
-		color: var(--fg-ghost);
+	.hero-text {
+		flex: 1;
+		min-width: 0;
 	}
 
-	.cursor {
-		color: var(--accent);
-		animation: blink 1.06s step-end infinite;
+	.torus-wrap {
+		flex-shrink: 0;
 	}
 
-	.hero-agent h1 {
+	.banner {
+		font-family: var(--font-ascii);
+		font-size: 0.55rem;
+		line-height: 1.15;
+		color: var(--fg);
+		margin-bottom: var(--space-3);
+		overflow: hidden;
+		white-space: pre;
+	}
+
+	.role {
 		font-size: var(--text-lg);
-		margin-bottom: var(--space-2);
+		color: var(--fg-3);
 	}
 
-	.hero-agent p {
-		color: var(--fg-secondary);
+	.tagline {
+		font-size: var(--text-lg);
+		color: var(--fg-muted);
+		margin-top: var(--space-3);
+		display: flex;
+		gap: var(--space-1);
 	}
 
-	@media (max-width: 640px) {
-		.hero {
-			padding: var(--space-8) 0 var(--space-6);
-		}
+	.prompt { color: var(--fg-muted); }
+	.tagline-text { min-width: 12ch; }
+	.cursor { color: var(--accent); animation: blink 1.06s step-end infinite; }
 
-		.hero-name {
-			font-size: var(--text-2xl);
-		}
+	@media (max-width: 480px) {
+		.hero { padding: var(--space-8) 0 var(--space-4); }
+		.banner { font-size: 0.35rem; }
+		.torus-wrap { display: none; }
 	}
 </style>

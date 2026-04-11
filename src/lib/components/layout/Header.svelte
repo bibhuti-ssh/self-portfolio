@@ -5,14 +5,15 @@
 
 	const links = [
 		{ href: '/', label: 'index' },
+		{ href: '/experience', label: 'experience' },
 		{ href: '/projects', label: 'projects' },
-		{ href: '/timeline', label: 'life' },
 		{ href: '/readings', label: 'reading' },
-		{ href: '/wordings', label: 'wordings' },
+		{ href: '/wordings', label: 'writing' },
 		{ href: '/about', label: 'about' }
 	];
 
 	let scrolled = $state(false);
+	let menuOpen = $state(false);
 
 	function isActive(href: string): boolean {
 		if (href === '/') return page.url.pathname === '/';
@@ -21,139 +22,160 @@
 
 	$effect(() => {
 		if (typeof window === 'undefined') return;
-
-		function onScroll() {
-			scrolled = window.scrollY > 80;
-		}
-
+		const onScroll = () => { scrolled = window.scrollY > 20; };
 		window.addEventListener('scroll', onScroll, { passive: true });
 		return () => window.removeEventListener('scroll', onScroll);
 	});
+
+	$effect(() => { page.url.pathname; menuOpen = false; });
 </script>
 
-<nav class="nav" class:scrolled aria-label="Main navigation">
-	<div class="nav-left">
-		<span class="nav-prompt" aria-hidden="true">~/bibhuti</span>
-		<span class="nav-sep" aria-hidden="true">$</span>
-	</div>
+<header class="header" class:scrolled>
+	<nav class="nav">
+		<a href="/" class="logo">bj</a>
 
-	<ul class="nav-links">
+		<div class="links">
+			{#each links as link}
+				<a href={link.href} class:active={isActive(link.href)}>{link.label}</a>
+			{/each}
+		</div>
+
+		<div class="actions">
+			<ThemeToggle />
+			<ModeToggle />
+		</div>
+
+		<button class="burger" onclick={() => (menuOpen = !menuOpen)} aria-label="Menu">
+			{menuOpen ? '×' : '≡'}
+		</button>
+	</nav>
+</header>
+
+{#if menuOpen}
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div class="overlay" onclick={() => (menuOpen = false)} onkeydown={() => {}}></div>
+	<div class="drawer">
 		{#each links as link}
-			<li>
-				<a href={link.href} class:active={isActive(link.href)}>
-					<span class="link-marker" aria-hidden="true">{isActive(link.href) ? '[x]' : '[ ]'}</span>
-					{link.label}
-				</a>
-			</li>
+			<a href={link.href} class="drawer-link" class:active={isActive(link.href)}>{link.label}</a>
 		{/each}
-	</ul>
-
-	<div class="nav-right">
-		<ThemeToggle />
-		<ModeToggle />
+		<div class="drawer-foot">
+			<ThemeToggle />
+			<ModeToggle />
+		</div>
 	</div>
-</nav>
+{/if}
 
 <style>
-	.nav {
+	.header {
 		position: sticky;
 		top: 0;
-		z-index: 50;
-		display: flex;
-		align-items: center;
-		gap: var(--space-4);
-		height: 56px;
-		padding: 0 var(--space-4);
-		margin: 0 calc(-1 * var(--space-8));
-		padding-inline: var(--space-8);
-		font-family: var(--font-mono);
-		font-size: var(--text-sm);
-		transition: background 200ms ease, border-color 200ms ease;
+		z-index: 100;
+		margin: 0 calc(-1 * var(--space-6));
+		padding: 0 var(--space-6);
 		border-bottom: 1px solid transparent;
+		transition: background 150ms, border-color 150ms;
 	}
 
-	.nav.scrolled {
-		background: color-mix(in srgb, var(--bg-primary) 85%, transparent);
-		backdrop-filter: blur(8px);
-		-webkit-backdrop-filter: blur(8px);
-		border-bottom-color: var(--border-ghost);
+	.header.scrolled {
+		background: color-mix(in srgb, var(--bg) 90%, transparent);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		border-bottom-color: var(--border);
 	}
 
-	.nav-left {
+	.nav {
 		display: flex;
 		align-items: center;
-		gap: var(--space-2);
+		height: 44px;
+		gap: var(--space-4);
+		font-size: var(--text-xs);
+	}
+
+	.logo {
+		font-weight: 700;
+		font-size: var(--text-sm);
+		color: var(--fg);
+		text-decoration: none;
 		flex-shrink: 0;
 	}
 
-	.nav-prompt {
-		color: var(--fg-tertiary);
-	}
-
-	.nav-sep {
-		color: var(--fg-ghost);
-	}
-
-	.nav-links {
+	.links {
 		display: flex;
 		gap: var(--space-3);
-		flex-wrap: wrap;
 	}
 
-	.nav-links a {
-		color: var(--fg-secondary);
+	.links a {
+		color: var(--fg-3);
 		text-decoration: none;
-		transition: color 120ms ease;
-		display: flex;
-		align-items: center;
-		gap: var(--space-1);
+		transition: color 80ms;
 	}
+	.links a:hover { color: var(--fg); }
+	.links a.active { color: var(--fg); }
 
-	.nav-links a:hover {
-		color: var(--fg-primary);
-	}
-
-	.nav-links a.active {
-		color: var(--fg-primary);
-	}
-
-	.link-marker {
-		font-size: var(--text-xs);
-		color: var(--fg-ghost);
-	}
-
-	.active .link-marker {
-		color: var(--accent);
-	}
-
-	.nav-right {
+	.actions {
 		margin-left: auto;
 		display: flex;
 		align-items: center;
-		gap: var(--space-2);
-		flex-shrink: 0;
+		gap: var(--space-3);
 	}
 
-	@media (max-width: 768px) {
-		.nav {
-			flex-wrap: wrap;
-			height: auto;
-			padding-block: var(--space-3);
-			gap: var(--space-2);
+	.burger {
+		display: none;
+		margin-left: auto;
+		font-size: var(--text-lg);
+		color: var(--fg-3);
+		padding: var(--space-1);
+	}
+	.burger:hover { color: var(--fg); }
+
+	.overlay {
+		position: fixed;
+		inset: 0;
+		z-index: 90;
+		background: rgba(0,0,0,0.3);
+	}
+
+	.drawer {
+		position: fixed;
+		top: 0;
+		right: 0;
+		z-index: 91;
+		width: 200px;
+		height: 100dvh;
+		background: var(--bg);
+		border-left: 1px solid var(--border);
+		padding: var(--space-8) var(--space-6);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+		font-size: var(--text-sm);
+	}
+
+	.drawer-link {
+		color: var(--fg-3);
+		text-decoration: none;
+		padding: var(--space-2) 0;
+		border-bottom: 1px solid var(--border);
+		transition: color 80ms;
+	}
+	.drawer-link:hover, .drawer-link.active { color: var(--fg); }
+
+	.drawer-foot {
+		margin-top: auto;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		padding-top: var(--space-4);
+		border-top: 1px solid var(--border);
+	}
+
+	@media (max-width: 600px) {
+		.header {
+			margin: 0 calc(-1 * var(--space-4));
+			padding: 0 var(--space-4);
 		}
 
-		.nav-prompt, .nav-sep {
-			display: none;
-		}
-
-		.nav-links {
-			order: 3;
-			width: 100%;
-			gap: var(--space-2);
-		}
-
-		.link-marker {
-			display: none;
-		}
+		.links, .actions { display: none; }
+		.burger { display: block; }
 	}
 </style>
