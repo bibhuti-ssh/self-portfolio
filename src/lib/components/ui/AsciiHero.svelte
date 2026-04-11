@@ -4,8 +4,11 @@
 	import AsciiTorus from './AsciiTorus.svelte';
 
 	let {
-		taglines = ['building things that think', 'shipping at the edge', 'reading the source', 'systems over hype']
-	}: { taglines?: string[] } = $props();
+		taglines = ['building things that think', 'shipping at the edge', 'reading the source', 'systems over hype'],
+		github = '',
+		twitter = '',
+		linkedin = ''
+	}: { taglines?: string[]; github?: string; twitter?: string; linkedin?: string } = $props();
 
 	let tagline = $state('');
 	let visible = $state(false);
@@ -31,6 +34,11 @@
 				<div class="hero-text">
 					<pre class="banner decorative" aria-hidden="true">{banner}</pre>
 					<p class="role">engineer · builder · reader</p>
+					<div class="socials">
+						{#if github}<a href={github} target="_blank" rel="noopener">github</a>{/if}
+						{#if linkedin}<a href={linkedin} target="_blank" rel="noopener">linkedin</a>{/if}
+						{#if twitter}<a href={twitter} target="_blank" rel="noopener">x/twitter</a>{/if}
+					</div>
 					<p class="tagline">
 						<span class="prompt" aria-hidden="true">&gt;</span>
 						<span class="tagline-text">{tagline}</span>
@@ -89,6 +97,20 @@
 		font-size: var(--text-lg);
 		color: var(--fg-3);
 	}
+
+	.socials {
+		display: flex;
+		gap: var(--space-3);
+		margin-top: var(--space-2);
+		font-size: var(--text-sm);
+	}
+
+	.socials a {
+		color: var(--fg-3);
+		text-decoration: none;
+		transition: color 80ms;
+	}
+	.socials a:hover { color: var(--accent); }
 
 	.tagline {
 		font-size: var(--text-lg);

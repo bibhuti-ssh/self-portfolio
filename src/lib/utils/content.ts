@@ -112,6 +112,7 @@ export function loadSettings(): Settings {
 			about: '',
 			taglines: [],
 			github: '',
+			linkedin: '',
 			twitter: '',
 			email: '',
 			building_in_public: ''

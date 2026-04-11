@@ -14,7 +14,7 @@
 	<meta name="description" content="Bibhuti Jha — engineer, builder, reader" />
 </svelte:head>
 
-<AsciiHero taglines={settings?.taglines} />
+<AsciiHero taglines={settings?.taglines} github={settings?.github} linkedin={settings?.linkedin} twitter={settings?.twitter} />
 
 <!-- Bio -->
 <section class="section bio">

@@ -7,6 +7,7 @@ taglines:
   - "reading the source"
   - "systems over hype"
 github: "https://github.com/bibhutissh"
+linkedin: "https://linkedin.com/in/bibhutijha"
 twitter: "https://x.com/bibhutissh"
 email: "hello@bibhutijha.dev"
 building_in_public: "I build in the open — shipping features, sharing learnings, breaking things. Follow the build on [X](https://x.com/bibhutissh) or check the code on [GitHub](https://github.com/bibhutissh)."

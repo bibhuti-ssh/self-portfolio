@@ -69,6 +69,7 @@ export interface Settings {
 	about: string;
 	taglines: string[];
 	github: string;
+	linkedin: string;
 	twitter: string;
 	email: string;
 	building_in_public: string;
