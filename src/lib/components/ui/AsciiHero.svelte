@@ -34,16 +34,16 @@
 				<div class="hero-text">
 					<pre class="banner decorative" aria-hidden="true">{banner}</pre>
 					<p class="role">engineer · builder · reader</p>
-					<div class="socials">
-						{#if github}<a href={github} target="_blank" rel="noopener">github</a>{/if}
-						{#if linkedin}<a href={linkedin} target="_blank" rel="noopener">linkedin</a>{/if}
-						{#if twitter}<a href={twitter} target="_blank" rel="noopener">x/twitter</a>{/if}
-					</div>
 					<p class="tagline">
 						<span class="prompt" aria-hidden="true">&gt;</span>
 						<span class="tagline-text">{tagline}</span>
 						<span class="cursor" aria-hidden="true">_</span>
 					</p>
+					<div class="socials">
+						{#if github}<a href={github} target="_blank" rel="noopener">github</a>{/if}
+						{#if linkedin}<a href={linkedin} target="_blank" rel="noopener">linkedin</a>{/if}
+						{#if twitter}<a href={twitter} target="_blank" rel="noopener">x/twitter</a>{/if}
+					</div>
 				</div>
 				<div class="torus-wrap">
 					<AsciiTorus width={40} height={20} speed={1} />
@@ -101,7 +101,7 @@
 	.socials {
 		display: flex;
 		gap: var(--space-3);
-		margin-top: var(--space-2);
+		padding-top: 50px;
 		font-size: var(--text-sm);
 	}
 

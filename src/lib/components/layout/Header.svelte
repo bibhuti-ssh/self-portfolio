@@ -32,8 +32,6 @@
 
 <header class="header" class:scrolled>
 	<nav class="nav">
-		<a href="/" class="logo">bj</a>
-
 		<div class="links">
 			{#each links as link}
 				<a href={link.href} class:active={isActive(link.href)}>{link.label}</a>
@@ -89,14 +87,6 @@
 		height: 44px;
 		gap: var(--space-4);
 		font-size: var(--text-xs);
-	}
-
-	.logo {
-		font-weight: 700;
-		font-size: var(--text-sm);
-		color: var(--fg);
-		text-decoration: none;
-		flex-shrink: 0;
 	}
 
 	.links {
