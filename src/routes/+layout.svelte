@@ -4,7 +4,6 @@
 	import { theme } from '$lib/stores/theme.svelte';
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
-	import OrbitCursor from '$lib/components/ui/OrbitCursor.svelte';
 	import '../app.css';
 
 	let { children, data } = $props();
@@ -36,8 +35,6 @@
 	twitter={data.settings.twitter}
 	email={data.settings.email}
 />
-
-<OrbitCursor />
 
 <style>
 	main {
