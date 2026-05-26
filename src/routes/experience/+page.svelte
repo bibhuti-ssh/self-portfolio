@@ -73,7 +73,7 @@
 		font-weight: 700;
 	}
 
-	.item-company { color: var(--fg); }
+	.item-company { color: var(--accent); }
 	.item-date { font-size: var(--text-xs); color: var(--fg-3); flex-shrink: 0; }
 
 	.item-desc {

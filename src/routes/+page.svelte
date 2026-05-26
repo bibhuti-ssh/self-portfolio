@@ -151,7 +151,7 @@
 		font-weight: 700;
 	}
 
-	.exp-company { color: var(--fg); }
+	.exp-company { color: var(--accent); }
 	.exp-date { font-size: var(--text-xs); color: var(--fg-3); flex-shrink: 0; }
 
 	.exp-desc {
