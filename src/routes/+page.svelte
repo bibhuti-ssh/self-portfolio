@@ -145,7 +145,7 @@
 		font-size: var(--text-md);
 	}
 
-	.exp-role { font-weight: 400; }
+	.exp-role { font-weight: 700; }
 
 	.exp-at {
 		color: var(--accent);

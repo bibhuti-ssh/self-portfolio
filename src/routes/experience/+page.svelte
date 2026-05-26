@@ -67,7 +67,7 @@
 		font-size: var(--text-md);
 	}
 
-	.item-role { font-weight: 400; }
+	.item-role { font-weight: 700; }
 
 	.item-at {
 		color: var(--accent);
