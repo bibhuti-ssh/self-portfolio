@@ -5,11 +5,11 @@ tags: ["open-source", "building-in-public"]
 description: "What I'm building right now, in the open."
 ---
 
-Currently building [DroidRun Cloud](https://droidrun.com) — a platform that lets AI agents control real Android devices. Shipping features weekly, breaking things daily.
+Recently built across DroidRun and MobileRun Cloud: mobile-agent workflows, cloud device orchestration, OpenClaw connectors, and automation surfaces for teams trying to make agents useful outside demos.
 
 ## Open Source
 
-Contributing to LLM agent orchestration tooling. Most of my work is on GitHub — follow along at [github.com/bibhutissh](https://github.com/bibhutissh).
+Contributing around LLM agent tooling, mobile automation, and campus-scale products. Most of my work is on GitHub — follow along at [github.com/bibhuti-ssh](https://github.com/bibhuti-ssh).
 
 ## Follow the Build
 

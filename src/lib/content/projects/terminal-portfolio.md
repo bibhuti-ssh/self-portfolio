@@ -4,7 +4,7 @@ description: "This website — monochrome, ASCII art, dual human/agent rendering
 techStack: ["SvelteKit", "Svelte 5", "mdsvex", "TypeScript"]
 url: ""
 repo: ""
-featured: true
+featured: false
 date: "2026-04-11"
 status: "active"
 ---

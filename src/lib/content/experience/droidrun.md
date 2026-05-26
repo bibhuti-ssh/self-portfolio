@@ -1,8 +1,8 @@
 ---
-role: "Founding Engineer"
-company: "DroidRun"
-date: "2025-01-01"
-description: "Building cloud platform for AI-powered mobile device automation. Designing the SvelteKit frontend, Python/FastAPI backend, real-time device streaming, and LLM agent framework."
+role: "DevRel & Cloud Platform Engineer"
+company: "DroidRun / MobileRun AI Agents"
+date: "Nov 2025 - Mar 2026"
+description: "Shipped production mobile-agent infrastructure: Go-based iOS containerd portal, enterprise agentic workflows, OpenClaw skill connectors, n8n nodes, template APIs, QA pipelines, and platform refactors for cloud device automation."
 featured: true
 order: 1
 ---
