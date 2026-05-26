@@ -142,16 +142,17 @@
 
 	.exp-role,
 	.exp-company {
-		font-weight: 700;
 		font-size: var(--text-md);
 	}
+
+	.exp-role { font-weight: 400; }
 
 	.exp-at {
 		color: var(--accent);
 		font-weight: 700;
 	}
 
-	.exp-company { color: var(--accent); }
+	.exp-company { color: var(--accent); font-weight: 700; }
 	.exp-date { font-size: var(--text-xs); color: var(--fg-3); flex-shrink: 0; }
 
 	.exp-desc {

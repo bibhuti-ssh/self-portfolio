@@ -64,16 +64,17 @@
 
 	.item-role,
 	.item-company {
-		font-weight: 700;
 		font-size: var(--text-md);
 	}
+
+	.item-role { font-weight: 400; }
 
 	.item-at {
 		color: var(--accent);
 		font-weight: 700;
 	}
 
-	.item-company { color: var(--accent); }
+	.item-company { color: var(--accent); font-weight: 700; }
 	.item-date { font-size: var(--text-xs); color: var(--fg-3); flex-shrink: 0; }
 
 	.item-desc {
