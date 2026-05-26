@@ -22,14 +22,17 @@
 		{#if mode.isHuman}
 			<div class="item">
 				<div class="item-top">
-					<span class="item-role">{exp.role}</span>
+					<span class="item-title">
+						<span class="item-role">{exp.role}</span>
+						<span class="item-at">@</span>
+						<span class="item-company">{exp.company}</span>
+					</span>
 					<span class="item-date">{exp.date}</span>
 				</div>
-				<span class="item-company">{exp.company}</span>
 				<p class="item-desc">{exp.description}</p>
 			</div>
 		{:else}
-			<p>- **{exp.role}** at {exp.company} ({exp.date}): {exp.description}</p>
+			<p>- **{exp.role} @ {exp.company}** ({exp.date}): {exp.description}</p>
 		{/if}
 	{/each}
 </section>
@@ -51,9 +54,27 @@
 		gap: var(--space-2);
 	}
 
-	.item-role { font-weight: 700; font-size: var(--text-md); }
+	.item-title {
+		display: flex;
+		align-items: baseline;
+		flex-wrap: wrap;
+		gap: var(--space-1);
+		min-width: 0;
+	}
+
+	.item-role,
+	.item-company {
+		font-weight: 700;
+		font-size: var(--text-md);
+	}
+
+	.item-at {
+		color: var(--accent);
+		font-weight: 700;
+	}
+
+	.item-company { color: var(--fg); }
 	.item-date { font-size: var(--text-xs); color: var(--fg-3); flex-shrink: 0; }
-	.item-company { font-size: var(--text-sm); color: var(--fg-3); display: block; margin-top: var(--space-1); }
 
 	.item-desc {
 		color: var(--fg-2);

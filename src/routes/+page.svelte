@@ -30,10 +30,13 @@
 		{#each data.experience as exp}
 			<div class="exp-item">
 				<div class="exp-top">
-					<span class="exp-role">{exp.role}</span>
+					<span class="exp-title">
+						<span class="exp-role">{exp.role}</span>
+						<span class="exp-at">@</span>
+						<span class="exp-company">{exp.company}</span>
+					</span>
 					<span class="exp-date">{exp.date}</span>
 				</div>
-				<span class="exp-company">{exp.company}</span>
 				<p class="exp-desc">{exp.description}</p>
 			</div>
 		{/each}
@@ -129,9 +132,27 @@
 		gap: var(--space-2);
 	}
 
-	.exp-role { font-weight: 700; font-size: var(--text-md); }
+	.exp-title {
+		display: flex;
+		align-items: baseline;
+		flex-wrap: wrap;
+		gap: var(--space-1);
+		min-width: 0;
+	}
+
+	.exp-role,
+	.exp-company {
+		font-weight: 700;
+		font-size: var(--text-md);
+	}
+
+	.exp-at {
+		color: var(--accent);
+		font-weight: 700;
+	}
+
+	.exp-company { color: var(--fg); }
 	.exp-date { font-size: var(--text-xs); color: var(--fg-3); flex-shrink: 0; }
-	.exp-company { font-size: var(--text-sm); color: var(--fg-3); }
 
 	.exp-desc {
 		color: var(--fg-2);
