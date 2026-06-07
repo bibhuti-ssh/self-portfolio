@@ -1,8 +1,6 @@
 ---
 bio: cs @ iit patna. i build around ai infrastructure, ship products used by thousands, and think too hard about systems. the kind that doesn't stop.
 about: |-
-  ![](/images/ASCII-Art-1.png)
-
   i was 10 years old when i snuck into my dad's office on a weekend.
 
   he had a computer. i had curiosity and absolutely no supervision.
