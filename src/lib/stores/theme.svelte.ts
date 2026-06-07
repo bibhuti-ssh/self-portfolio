@@ -1,7 +1,7 @@
 export type Theme = 'light' | 'dark';
 
 class ThemeState {
-	current: Theme = $state('light');
+	current: Theme = $state('dark');
 
 	toggle() {
 		this.current = this.current === 'light' ? 'dark' : 'light';
@@ -24,8 +24,6 @@ class ThemeState {
 			const stored = localStorage.getItem('theme') as Theme | null;
 			if (stored === 'light' || stored === 'dark') {
 				this.current = stored;
-			} else if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-				this.current = 'dark';
 			}
 		}
 		this.applyAttribute();
