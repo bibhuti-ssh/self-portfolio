@@ -31,9 +31,8 @@
 			<div class="exp-item">
 				<div class="exp-top">
 					<span class="exp-title">
-						<span class="exp-role">{exp.role}</span>
-						<span class="exp-at">@</span>
 						<span class="exp-company">{exp.company}</span>
+						<span class="exp-role">{exp.role}</span>
 					</span>
 					<span class="exp-date">{exp.date}</span>
 				</div>
@@ -118,42 +117,77 @@
 		max-width: 60ch;
 	}
 
-	.exp-list { display: flex; flex-direction: column; }
+	.exp-list {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+	}
 
 	.exp-item {
-		padding: var(--space-3) 0;
+		position: relative;
+		padding: var(--space-3) 0 var(--space-3) var(--space-6);
 		border-bottom: 1px solid var(--border);
+	}
+
+	.exp-item::before {
+		content: '';
+		position: absolute;
+		left: 0.32rem;
+		top: 0;
+		bottom: 0;
+		width: 1px;
+		background: var(--border);
+	}
+
+	.exp-item:first-child::before { top: var(--space-3); }
+	.exp-item:last-child::before { bottom: calc(100% - var(--space-3)); }
+
+	.exp-item::after {
+		content: '';
+		position: absolute;
+		left: 0.1rem;
+		top: var(--space-3);
+		width: 0.45rem;
+		height: 0.45rem;
+		border: 1px solid var(--accent);
+		background: var(--bg);
+		box-shadow: 0 0 0 3px var(--bg);
 	}
 
 	.exp-top {
 		display: flex;
 		justify-content: space-between;
-		align-items: baseline;
-		gap: var(--space-2);
+		align-items: flex-start;
+		gap: var(--space-3);
 	}
 
 	.exp-title {
 		display: flex;
-		align-items: baseline;
-		flex-wrap: wrap;
+		flex-direction: column;
 		gap: var(--space-1);
 		min-width: 0;
 	}
 
-	.exp-role,
 	.exp-company {
-		font-size: var(--text-md);
-	}
-
-	.exp-role { font-weight: 700; }
-
-	.exp-at {
 		color: var(--accent);
 		font-weight: 700;
+		font-size: var(--text-md);
+		line-height: var(--leading-tight);
 	}
 
-	.exp-company { color: var(--accent); font-weight: 700; }
-	.exp-date { font-size: var(--text-xs); color: var(--fg-3); flex-shrink: 0; }
+	.exp-role {
+		color: var(--fg);
+		font-weight: 700;
+		font-size: var(--text-sm);
+		line-height: var(--leading-snug);
+	}
+
+	.exp-date {
+		font-size: var(--text-xs);
+		color: var(--fg-3);
+		flex-shrink: 0;
+		padding-top: 0.05rem;
+	}
 
 	.exp-desc {
 		color: var(--fg-2);
@@ -206,6 +240,6 @@
 
 	@media (max-width: 480px) {
 		.section { padding: var(--space-4) 0; }
-		.exp-top { flex-direction: column; gap: 0; }
+		.exp-top { flex-direction: column; gap: var(--space-1); }
 	}
 </style>
